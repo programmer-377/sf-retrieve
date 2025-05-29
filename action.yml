@@ -74,23 +74,16 @@ runs:
       run: |
         git config --local user.name "${{ inputs.GITHUB_USER_NAME }}"
         git config --local user.email "${{ inputs.GITHUB_USER_EMAIL }}"
-    
-        # Ensure we have the latest backup branch from remote
         git fetch origin backup || true
         if git rev-parse --verify origin/backup; then
           git checkout backup || git checkout -b backup origin/backup
         else
           git checkout -b backup
         fi
-    
-        # Always rebase the latest
+        
         git pull --rebase origin backup || true
-    
-        # Add and commit changes
         git add .
         git commit -m "Backup Salesforce metadata $(date +'%Y-%m-%d')" || echo "No changes to commit"
-    
-        # Retry push on failure (up to 3 times)
         n=0
         until [ $n -ge 3 ]
         do
@@ -100,8 +93,7 @@ runs:
           git pull --rebase origin backup || true
           sleep 2
         done
-
-    if [ $n -ge 3 ]; then
-      echo "Failed to push to backup after 3 attempts."
-      exit 1
-    fi
+        if [ $n -ge 3 ]; then
+          echo "Failed to push to backup after 3 attempts."
+          exit 1
+        fi
