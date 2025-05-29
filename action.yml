@@ -77,12 +77,9 @@ runs:
          git checkout -B "${{ inputs.BRANCH_NAME }}"
          git add .
          git commit -m "Backup Salesforce metadata $(date +'%Y-%m-%d')" || echo "No changes to commit"
-         git pull --rebase origin "${{ inputs.BRANCH_NAME }}" || true
-         deployFlags=()
-         if [ "${{ inputs.FORCE_PUSH }}" = "true" ]; then
-           deployFlags+=(--force)
-         fi
-         git push origin "${{ inputs.BRANCH_NAME }}" "${deployFlags[@]}"
+        git pull --rebase origin "${{ inputs.BRANCH_NAME }}"
+        # Resolve conflicts automatically if possible, or handle manually
+        git push origin "${{ inputs.BRANCH_NAME }}"
 
     # - name: Push changes to backup branch
     #   shell: bash
