@@ -81,26 +81,26 @@ runs:
     #     # Resolve conflicts automatically if possible, or handle manually
     #     git push origin "${{ inputs.BRANCH_NAME }}"
 
-    - name: Commit and push metadata changes
-      shell: bash
-      run: |
-        git config --local user.name "${{ inputs.GITHUB_USER_NAME }}"
-        git config --local user.email "${{ inputs.GITHUB_USER_EMAIL }}"
-        git checkout -B "${{ inputs.BRANCH_NAME }}"
-        git add .
-        git commit -m "Backup Salesforce metadata $(date +'%Y-%m-%d')" || echo "No changes to commit"
-    
-        # Pull with rebase to avoid merge commits and update with remote changes
-        git pull --rebase origin "${{ inputs.BRANCH_NAME }}" || true
-    
-        # Set up deployFlags for push only
-        deployFlags=()
-        if [ "${{ inputs.FORCE_PUSH }}" = "true" ]; then
-          deployFlags+=(--force)
-        fi
-    
-        # Attempt to push; will use --force only if requested
-        git push origin "${{ inputs.BRANCH_NAME }}" "${deployFlags[@]}"
+  - name: Commit and push metadata changes
+    shell: bash
+    run: |
+      git config --local user.name "${{ inputs.GITHUB_USER_NAME }}"
+      git config --local user.email "${{ inputs.GITHUB_USER_EMAIL }}"
+      git checkout -B "${{ inputs.BRANCH_NAME }}"
+      git add .
+      git commit -m "Backup Salesforce metadata $(date +'%Y-%m-%d')" || echo "No changes to commit"
+  
+      # Always rebase to integrate remote changes
+      git pull --rebase origin "${{ inputs.BRANCH_NAME }}" || true
+  
+      # Set up deployFlags for push only
+      deployFlags=()
+      if [ "${{ inputs.FORCE_PUSH }}" = "true" ]; then
+        deployFlags+=(--force)
+      fi
+  
+      # Final push (with --force only if FORCE_PUSH is true)
+      git push origin "${{ inputs.BRANCH_NAME }}" "${deployFlags[@]}"
 
     # - name: Push changes to backup branch
     #   shell: bash
