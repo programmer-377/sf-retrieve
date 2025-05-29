@@ -77,12 +77,13 @@ runs:
         git checkout -b ${{ inputs.BRANCH_NAME }} || ${{ inputs.BRANCH_NAME }}
         git add .
         git commit -m "Backup Salesforce metadata $(date +'%Y-%m-%d')" || echo "No changes to commit"
+        git push origin backup  "${deployFlags[@]}"
 
-    - name: Push changes to backup branch
-      shell: bash
-      run: |
-        deployFlags=()
-        if [ "${{ inputs.FORCE_PUSH }}" = "true" ]; then
-          deployFlags+=( --force )
-        fi
-        git pull origin ${{ inputs.BRANCH_NAME }} "${deployFlags[@]}"
+    # - name: Push changes to backup branch
+    #   shell: bash
+    #   run: |
+    #     deployFlags=()
+    #     if [ "${{ inputs.FORCE_PUSH }}" = "true" ]; then
+    #       deployFlags+=( --force )
+    #     fi
+    #     git pull origin ${{ inputs.BRANCH_NAME }} "${deployFlags[@]}"
