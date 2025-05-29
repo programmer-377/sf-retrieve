@@ -85,4 +85,4 @@ runs:
         if [ "${{ inputs.FORCE_PUSH }}" = "true" ]; then
           deployFlags+=( --force )
         fi
-        git push origin ${{ inputs.BRANCH_NAME }} "${deployFlags[@]}"
+        git pull origin ${{ inputs.BRANCH_NAME }} "${deployFlags[@]}"
