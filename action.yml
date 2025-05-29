@@ -25,6 +25,9 @@ inputs:
   SOURCE_DIR:
     description: "File paths for source to retrieve from the org. The supplied paths can be to a single file (in which case the operation is applied to only one file) or to a folder (in which case the operation is applied to all source files in the directory and its subdirectories)."
     type: string
+  SCRIPT_DIR:
+    description: "send Email direceory"
+    type: string
   METADATA:
     description: "Metadata component names to retrieve. Wildcards (`*`) supported as long as you use quotes, such as `ApexClass:MyClass*`."
     type: string
@@ -86,3 +89,8 @@ runs:
           deployFlags+=( --force )
         fi
         git push origin ${{ inputs.BRANCH_NAME }} "${deployFlags[@]}"
+
+     - name: Send Email
+        shell: bash
+        run: | 
+          sf apex run --file "${{ inputs.SCRIPT_DIR }}"
