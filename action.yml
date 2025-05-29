@@ -69,34 +69,14 @@ runs:
         fi
         sf project retrieve start "${deployFlags[@]}"
 
-    # - name: Commit metadata changes
-    #   shell: bash
-    #   run: |
-    #      git config --local user.name "${{ inputs.GITHUB_USER_NAME }}"
-    #      git config --local user.email "${{ inputs.GITHUB_USER_EMAIL }}"
-    #      git checkout -B "${{ inputs.BRANCH_NAME }}"
-    #      git add .
-    #      git commit -m "Backup Salesforce metadata $(date +'%Y-%m-%d')" || echo "No changes to commit"
-    #     git pull --rebase origin "${{ inputs.BRANCH_NAME }}"
-    #     # Resolve conflicts automatically if possible, or handle manually
-    #     git push origin "${{ inputs.BRANCH_NAME }}"
-
-   - name: Commit and push metadata changes
-    shell: bash
-    - name: Backup Salesforce Metadata
-        run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
-          git pull origin backup || echo "No changes to pull."
-          git push origin backup
-        env:
-          SFDX_AUTH_URL: ${{ secrets.SFDX_AUTH_URL }}
-  
-      # - name: Push changes to backup branch
-      #   shell: bash
-      #   run: |
-      #     deployFlags=()
-      #     if [ "${{ inputs.FORCE_PUSH }}" = "true" ]; then
-      #       deployFlags+=( --force )
-      #     fi
-      #     git pull origin ${{ inputs.BRANCH_NAME }} "${deployFlags[@]}"
+    - name: Commit and push metadata changes to backup branch
+      shell: bash
+      run: |
+        git config --local user.name "${{ inputs.GITHUB_USER_NAME }}"
+        git config --local user.email "${{ inputs.GITHUB_USER_EMAIL }}"
+        git fetch origin backup || git branch backup
+        git checkout backup || git checkout -b backup
+        git add .
+        git commit -m "Backup Salesforce metadata $(date +'%Y-%m-%d')" || echo "No changes to commit"
+        git pull --rebase origin backup || echo "No changes to pull."
+        git push origin backup
