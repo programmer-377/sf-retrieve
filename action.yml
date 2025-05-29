@@ -1,6 +1,6 @@
 name: Retrieve Salesforce Metadata
 description: "Retrieves Salesforce metadata and commits it to a branch"
-author: jawills
+author: muthu
 branding:
   icon: code
   color: blue
