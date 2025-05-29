@@ -74,9 +74,9 @@ runs:
       run: |
         git config --local user.name "${{ inputs.GITHUB_USER_NAME }}"
         git config --local user.email "${{ inputs.GITHUB_USER_EMAIL }}"
-        git fetch origin backup || git branch backup
+        git fetch origin backup
         git checkout backup || git checkout -b backup
+        git pull --rebase origin backup || echo "No changes to pull."
         git add .
         git commit -m "Backup Salesforce metadata $(date +'%Y-%m-%d')" || echo "No changes to commit"
-        git pull --rebase origin backup || echo "No changes to pull."
         git push origin backup
