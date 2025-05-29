@@ -78,7 +78,7 @@ runs:
         git checkout -b ${{ inputs.BRANCH_NAME }} || ${{ inputs.BRANCH_NAME }}
         git add .
         git commit -m "Backup Salesforce metadata $(date +'%Y-%m-%d')" || echo "No changes to commit"
-        git pull origin backup  "${deployFlags[@]}"
+        git pull origin backup
 
     # - name: Push changes to backup branch
     #   shell: bash
