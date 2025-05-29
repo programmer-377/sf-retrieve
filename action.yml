@@ -72,12 +72,13 @@ runs:
     - name: Commit metadata changes
       shell: bash
       run: |
+        deployFlags=()
         git config --local user.name ${{ inputs.GITHUB_USER_NAME }}
         git config --local user.email ${{ inputs.GITHUB_USER_EMAIL }}
         git checkout -b ${{ inputs.BRANCH_NAME }} || ${{ inputs.BRANCH_NAME }}
         git add .
         git commit -m "Backup Salesforce metadata $(date +'%Y-%m-%d')" || echo "No changes to commit"
-        git push origin backup  "${deployFlags[@]}"
+        git pull origin backup  "${deployFlags[@]}"
 
     # - name: Push changes to backup branch
     #   shell: bash
