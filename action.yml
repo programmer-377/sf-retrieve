@@ -34,9 +34,9 @@ inputs:
     IGNORE_CONFLICTS:
         description: "Ignore conflicts and retrieve and save files to your local filesystem, even if they overwrite your local changes. This flag applies only to orgs that allow source tracking. It has no effect on orgs that don't allow it, such as production orgs."
         type: boolean
-    # FORCE_PUSH:
-    #     description: "Force push commit to desired branch"
-    #     type: boolean
+    FORCE_PUSH:
+        description: "Force push commit to desired branch"
+        type: boolean
     SCRIPT_DIRECTORY:
         description: "The directory path where scripts are located"
         type: string
@@ -86,9 +86,9 @@ inputs:
         shell: bash
         run: |
             deployFlags=()
-            # if [ "${{ inputs.FORCE_PUSH }}" = "true" ]; then
-            # deployFlags+=( --force )
-            # fi
+            if [ "${{ inputs.FORCE_PUSH }}" = "true" ]; then
+            deployFlags+=( --force )
+            fi
             git push origin ${{ inputs.BRANCH_NAME }} "${deployFlags[@]}"
 
         - name: Send Email
