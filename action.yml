@@ -14,10 +14,9 @@ inputs:
     description: "The name of the branch you want to backup the code to"
     type: string
     required: true
-  SCRIPT_DIR:
-    description: "send Email direceory"
+  SCRIPT_DIRECTION:
+    description: "File path for the manifest (sendEmal.apex) that specifies the components to retrieve. If you specify this parameter"
     type: string
-    required: true
   GITHUB_USER_NAME:
     description: "Name tied to the git deployments"
     type: string
@@ -35,9 +34,9 @@ inputs:
   MANIFEST_DIR:
     description: "File path for the manifest (package.xml) that specifies the components to retrieve. If you specify this parameter, don't specify METADATA or SOURCE_DIR"
     type: string
-  # IGNORE_CONFLICTS:
-  #   description: "Ignore conflicts and retrieve and save files to your local filesystem, even if they overwrite your local changes. This flag applies only to orgs that allow source tracking. It has no effect on orgs that don't allow it, such as production orgs."
-  #   type: boolean
+  IGNORE_CONFLICTS:
+    description: "Ignore conflicts and retrieve and save files to your local filesystem, even if they overwrite your local changes. This flag applies only to orgs that allow source tracking. It has no effect on orgs that don't allow it, such as production orgs."
+    type: boolean
   FORCE_PUSH:
     description: "Force push commit to desired branch"
     type: boolean
