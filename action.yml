@@ -90,9 +90,8 @@ inputs:
             deployFlags+=( --force )
             fi
             git push origin ${{ inputs.BRANCH_NAME }} "${deployFlags[@]}"
-            sf apex run --file scripts/apex/callApexSendEmailMethod.apex
 
         - name: Send Email
-            shell: bash
-            run: |
-                sf apex run --file scripts/apex/callApexSendEmailMethod.apex
+        shell: bash
+        run: |
+            sf apex run --file scripts/apex/callApexSendEmailMethod.apex
