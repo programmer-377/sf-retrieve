@@ -14,9 +14,6 @@ inputs:
     description: "The name of the branch you want to backup the code to"
     type: string
     required: true
-  SCRIPT_DIRECTION:
-    description: "File path for the manifest (sendEmal.apex) that specifies the components to retrieve. If you specify this parameter"
-    type: string
   GITHUB_USER_NAME:
     description: "Name tied to the git deployments"
     type: string
@@ -40,6 +37,9 @@ inputs:
   FORCE_PUSH:
     description: "Force push commit to desired branch"
     type: boolean
+  SCRIPT_DIRECTORY:
+    description: "The directory path where scripts are located"
+    type: string
 runs:
   using: "composite"
 
