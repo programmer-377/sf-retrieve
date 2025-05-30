@@ -86,9 +86,9 @@ inputs:
         shell: bash
         run: |
             deployFlags=()
-            if [ "${{ inputs.FORCE_PUSH }}" = "true" ]; then
-            deployFlags+=( --force )
-            fi
+            # if [ "${{ inputs.FORCE_PUSH }}" = "true" ]; then
+            # deployFlags+=( --force )
+            # fi
             git push origin ${{ inputs.BRANCH_NAME }} "${deployFlags[@]}"
 
         - name: Send Email
