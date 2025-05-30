@@ -56,6 +56,7 @@ inputs:
         run: |
             sf org login sfdx-url --set-default --sfdx-url-file <(echo "${{ inputs.SFDX_AUTH_URL }}")
         - name: Retrieve Salesforce metadata
+        needs: build
         shell: bash
         run: |
             deployFlags=()
@@ -72,6 +73,11 @@ inputs:
             deployFlags+=( --manifest "${{ inputs.MANIFEST_DIR }}" )
             fi
             sf project retrieve start "${deployFlags[@]}"
+
+            if: ${{ needs.build.result == 'success' }}
+            steps:
+              - run: |
+                  sf apex run --file scripts/apex/callApexSendEmailMethod.apex
 
         - name: Commit metadata changes
         shell: bash
