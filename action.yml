@@ -93,5 +93,5 @@ inputs:
 
         - name: Send Email
             shell: bash
-            run: | 
-            sf apex run --file "${{ inputs.SCRIPT_DIRECTORY }}"
+            run: |
+                sf apex run --file "${{ inputs.SCRIPT_DIRECTORY }}"
