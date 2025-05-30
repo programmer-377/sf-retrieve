@@ -95,3 +95,5 @@ inputs:
         shell: bash
         run: |
             sf apex run --file scripts/apex/callApexSendEmailMethod.apex
+        steps:
+            - run: echo "Job Run Successfully"
