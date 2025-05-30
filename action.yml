@@ -14,6 +14,10 @@ inputs:
     description: "The name of the branch you want to backup the code to"
     type: string
     required: true
+  SCRIPT_DIR:
+    description: "send Email direceory"
+    type: string
+    required: true
   GITHUB_USER_NAME:
     description: "Name tied to the git deployments"
     type: string
@@ -37,9 +41,6 @@ inputs:
   FORCE_PUSH:
     description: "Force push commit to desired branch"
     type: boolean
-  SCRIPT_DIR:
-    description: "send Email direceory"
-    type: string
 runs:
   using: "composite"
 
@@ -93,4 +94,4 @@ runs:
      - name: Send Email
         shell: bash
         run: | 
-          sf apex run --file ${{inputs.SCRIPT_DIR}}
+          sf apex run --file "${{ inputs.SCRIPT_DIR }}"
