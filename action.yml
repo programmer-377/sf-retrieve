@@ -35,9 +35,9 @@ inputs:
   MANIFEST_DIR:
     description: "File path for the manifest (package.xml) that specifies the components to retrieve. If you specify this parameter, don't specify METADATA or SOURCE_DIR"
     type: string
-  IGNORE_CONFLICTS:
-    description: "Ignore conflicts and retrieve and save files to your local filesystem, even if they overwrite your local changes. This flag applies only to orgs that allow source tracking. It has no effect on orgs that don't allow it, such as production orgs."
-    type: boolean
+  # IGNORE_CONFLICTS:
+  #   description: "Ignore conflicts and retrieve and save files to your local filesystem, even if they overwrite your local changes. This flag applies only to orgs that allow source tracking. It has no effect on orgs that don't allow it, such as production orgs."
+  #   type: boolean
   FORCE_PUSH:
     description: "Force push commit to desired branch"
     type: boolean
